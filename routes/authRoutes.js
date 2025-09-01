@@ -5,5 +5,12 @@ const router = express.Router();
 
 router.post("/register", registerUser);
 router.post("/login", loginUser);
-
+router.get("/users", async (req, res) => {
+  try {
+    const users = await User.find().select("-password"); 
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ error: "Server error" });
+  }
+});
 export default router;

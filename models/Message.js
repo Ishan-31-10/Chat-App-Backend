@@ -13,7 +13,7 @@ const messageSchema = new mongoose.Schema(
       required: true,
     },
     content: { type: String, required: true },
-    deletedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }], // soft delete
+    deletedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }], 
   },
   { timestamps: true }
 );
