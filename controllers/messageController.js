@@ -1,7 +1,14 @@
 import Message from "../models/Message.js";
 import notifier from "node-notifier";
+import { fileURLToPath } from "url";
+import path from "path";
 
-// Send message to multiple receivers
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Icon ka path (apna PNG/ICO dalna yaha)
+const iconPath = path.resolve("public/assets/iwavedigital.png");
+
 // Send message to multiple receivers
 export const sendMessage = async (req, res) => {
   try {
@@ -32,17 +39,29 @@ export const sendMessage = async (req, res) => {
       title: "Message Sent",
       message: `Message sent to ${receivers.length} user(s)`,
       sound: true,
+      icon: iconPath, // Custom icon
+      wait: true, // Allow click events
+      appID: "ChatApp",
     });
 
     // 🔔 Receiver notification (har receiver ke liye alag)
     populatedMsgs.forEach((msg) => {
-      notifier.notify({
-        title: "New Message",
-        message: `From ${msg.sender.username}: ${msg.content}`,
-        sound: true,
-      });
+      notifier.notify(
+        {
+          title: "💬 New Message",
+          message: `From ${msg.sender.username}: ${msg.content}`,
+          sound: true,
+          icon: iconPath,
+          wait: true,
+          open: "http://localhost:3000/chat", // Jab click kare to ye URL open ho
+        },
+        (err, response, metadata) => {
+          if (metadata.activationType === "contentsClicked") {
+            console.log("Notification clicked!");
+          }
+        }
+      );
     });
-
     res.status(201).json(populatedMsgs);
   } catch (error) {
     res.status(500).json({ message: error.message });
