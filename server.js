@@ -7,6 +7,9 @@ import connectDB from "./config/db.js";
 
 import authRoutes from "./routes/authRoutes.js";
 import messageRoutes from "./routes/messageRoutes.js";
+import campaignRoutes from "./routes/campaignRoutes.js";
+import recipientRoutes from "./routes/recipientRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
 
 dotenv.config();
 connectDB();

@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "Realtime messaging backend with Express and Socket.io",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "worker": "node worker/worker.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",
@@ -16,7 +18,11 @@
     "mongoose": "^8.18.0",
     "node-notifier": "^10.0.1",
     "socket.io": "^4.7.2",
-    "socket.io-client": "^4.8.1"
+    "socket.io-client": "^4.8.1",
+    "bull": "^4.10.0",
+    "ioredis": "^5.3.2",
+    "nodemailer": "^6.9.4",
+    "luxon": "^3.4.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
